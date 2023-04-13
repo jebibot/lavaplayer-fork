@@ -3,6 +3,7 @@ package com.sedmelluq.discord.lavaplayer.container.playlists;
 import com.sedmelluq.discord.lavaplayer.source.stream.M3uStreamSegmentUrlProvider;
 import com.sedmelluq.discord.lavaplayer.tools.io.HttpInterface;
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -44,7 +45,7 @@ public class HlsStreamSegmentUrlProvider extends M3uStreamSegmentUrlProvider {
     ChannelStreamInfo stream = streams.get(0);
 
     log.debug("Chose stream with url {}", stream.quality, stream.url);
-    segmentPlaylistUrl = stream.url;
+    segmentPlaylistUrl = URI.create(streamListUrl).resolve(stream.url).toString();
     return segmentPlaylistUrl;
   }
 
